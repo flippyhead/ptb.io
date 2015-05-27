@@ -403,13 +403,17 @@
 	"expanded_folders":
 	[
 		"/Users/peter/Development/ptb.io",
-		"/Users/peter/Development/ptb.io/_includes",
-		"/Users/peter/Development/ptb.io/_layouts"
+		"/Users/peter/Development/ptb.io/_site",
+		"/Users/peter/Development/ptb.io/public"
 	],
 	"file_history":
 	[
-		"/Users/peter/Development/ptb.io/public/javascript/fetching.coffee",
+		"/Users/peter/Development/ptb.io/_layouts/default.html",
 		"/Users/peter/Development/ptb.io/index.html",
+		"/Users/peter/Development/ptb.io/public/css/main.scss",
+		"/Users/peter/Development/ptb.io/_includes/sidebar.html",
+		"/Users/peter/Development/ptb.io/_layouts/plain.html",
+		"/Users/peter/Development/ptb.io/public/javascript/fetching.coffee",
 		"/Users/peter/Development/ptb.io/_includes/fetching.html",
 		"/Users/peter/Development/ptb.io/_includes/spotify.html",
 		"/Users/peter/Development/ptb.io/_includes/goodreads.html",
@@ -531,11 +535,7 @@
 		"/Users/peter/Development/fetching-nw/sign.sh",
 		"/Users/peter/Development/fetching-nw/tmp/package.json",
 		"/Users/peter/Development/fetching-nw/dist/fetching.app/Contents/Resources/app.nw/node_modules/coffee-script/bin/coffee",
-		"/Users/peter/Development/fetching-nw/dist/fetching.app/Contents/Resources/app.nw/vendor/fetching-app/programs/server/packages/coffeescript.js.map",
-		"/Users/peter/Development/fetching-nw/dist/fetching.app/Contents/Resources/app.nw/vendor/fetching-app/programs/server/packages/coffeescript.js",
-		"/Users/peter/Development/fetching-nw/dist/fetching.app/Contents/Resources/app.nw/vendor/fetching-app/programs/server/app/server/fixtures.coffee.js.map",
-		"/Users/peter/Development/fetching-nw/dist/fetching.app/Contents/Resources/app.nw/vendor/fetching-app/programs/server/app/server/fixtures.coffee.js",
-		"/Users/peter/Development/fetching-nw/node_modules/concat-files/test/concat.js"
+		"/Users/peter/Development/fetching-nw/dist/fetching.app/Contents/Resources/app.nw/vendor/fetching-app/programs/server/packages/coffeescript.js.map"
 	],
 	"find":
 	{
@@ -681,6 +681,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"if",
 			"&",
 			"script",
 			"baseUrl",
@@ -807,8 +808,7 @@
 			"chmod",
 			"findServerAndKillItDead",
 			"pid",
-			"install",
-			"elastic"
+			"install"
 		],
 		"highlight": true,
 		"in_selection": false,
