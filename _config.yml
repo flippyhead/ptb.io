@@ -1,0 +1,22 @@
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink:           pretty
+relative_permalinks: true
+
+# Setup
+title:               ptb.io
+tagline:             'lkjsdaf alksdjf alskdj'
+description:         'The personal website for Peter Travis Brown.'
+url:                 http://lanyon.getpoole.com
+baseurl:             ''
+paginate:            5
+
+# About/contact
+author:
+  name:              Peter T. Brown
+  url:               https://ptb.io
+  email:             p@ptb.io
+
+# Custom vars
+version:             1.0.0
