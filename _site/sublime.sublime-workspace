@@ -339,6 +339,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "public/javascript/fetching.coffee",
+			"settings":
+			{
+				"buffer_size": 523,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -403,18 +411,20 @@
 	"expanded_folders":
 	[
 		"/Users/peter/Development/ptb.io",
-		"/Users/peter/Development/ptb.io/_site",
-		"/Users/peter/Development/ptb.io/public"
+		"/Users/peter/Development/ptb.io/public",
+		"/Users/peter/Development/ptb.io/public/javascript"
 	],
 	"file_history":
 	[
-		"/Users/peter/Development/ptb.io/_layouts/default.html",
+		"/Users/peter/Development/ptb.io/README.md",
 		"/Users/peter/Development/ptb.io/index.html",
+		"/Users/peter/Development/ptb.io/_includes/fetching.html",
+		"/Users/peter/Development/ptb.io/CNAME",
+		"/Users/peter/Development/ptb.io/_layouts/default.html",
 		"/Users/peter/Development/ptb.io/public/css/main.scss",
 		"/Users/peter/Development/ptb.io/_includes/sidebar.html",
 		"/Users/peter/Development/ptb.io/_layouts/plain.html",
 		"/Users/peter/Development/ptb.io/public/javascript/fetching.coffee",
-		"/Users/peter/Development/ptb.io/_includes/fetching.html",
 		"/Users/peter/Development/ptb.io/_includes/spotify.html",
 		"/Users/peter/Development/ptb.io/_includes/goodreads.html",
 		"/Users/peter/Development/ptb.io/public/javascript/goodreads.coffee",
@@ -533,9 +543,7 @@
 		"/Users/peter/Development/fetching-nw/node_modules/grunt-contrib-jshint/node_modules/hooker/grunt.js",
 		"/Users/peter/Development/fetching-nw/node_modules/grunt/node_modules/hooker/grunt.js",
 		"/Users/peter/Development/fetching-nw/sign.sh",
-		"/Users/peter/Development/fetching-nw/tmp/package.json",
-		"/Users/peter/Development/fetching-nw/dist/fetching.app/Contents/Resources/app.nw/node_modules/coffee-script/bin/coffee",
-		"/Users/peter/Development/fetching-nw/dist/fetching.app/Contents/Resources/app.nw/vendor/fetching-app/programs/server/packages/coffeescript.js.map"
+		"/Users/peter/Development/fetching-nw/tmp/package.json"
 	],
 	"find":
 	{
@@ -853,8 +861,41 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "public/javascript/fetching.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 523,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								167,
+								167
+							]
+						],
+						"settings":
+						{
+							"WordCountShouldRun": true,
+							"WordCountSyntax": "coffeescript",
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1436,9 +1477,13 @@
 	"select_project":
 	{
 		"height": 500.0,
-		"last_filter": "fetching-nw",
+		"last_filter": "pathable",
 		"selected_items":
 		[
+			[
+				"pathable",
+				"~/Development/pathable/pathable.sublime-project"
+			],
 			[
 				"fetching-nw",
 				"~/Development/fetching-nw/fetching-nw.sublime-project"
