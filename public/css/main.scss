@@ -14,6 +14,9 @@ img.lead {
   float: left;
   width: 14rem;
   margin-right: 1rem;
+  @media (max-width: 607px) {
+    width: 100%;
+  }
 }
 
 .hidden {

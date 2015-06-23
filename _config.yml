@@ -8,7 +8,7 @@ relative_permalinks: true
 title:               ptb.io
 tagline:             'lkjsdaf alksdjf alskdj'
 description:         'The personal website for Peter Travis Brown.'
-url:                 http://lanyon.getpoole.com
+url:                 http://ptb.io
 baseurl:             ''
 paginate:            5
 

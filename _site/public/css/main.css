@@ -8,6 +8,9 @@ img.lead {
   float: left;
   width: 14rem;
   margin-right: 1rem; }
+  @media (max-width: 607px) {
+    img.lead {
+      width: 100%; } }
 
 .hidden {
   display: none; }

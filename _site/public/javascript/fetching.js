@@ -3,7 +3,7 @@
 
   $span = $(document.createElement('span'));
 
-  url = 'https://app.fetching.io/api/v1/documents?token=E031EIDrgUXMmJtxE4dfrHN_8kHx3w_Cot3tlspMJoa';
+  url = 'http://api.fetching.io/v1/documents?token=E031EIDrgUXMmJtxE4dfrHN_8kHx3w_Cot3tlspMJoa';
 
   $.getJSON(url, function(bookmarks) {
     var length;
