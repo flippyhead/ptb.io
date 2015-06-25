@@ -30,6 +30,13 @@ img.lead {
   }
 }
 
+pre code {
+  overflow: auto;
+  word-wrap: normal;
+  white-space: pre;
+  display: block;
+}
+
 .gr_grid_container {
   /* customize grid container div here. eg: width: 500px; */
 }
