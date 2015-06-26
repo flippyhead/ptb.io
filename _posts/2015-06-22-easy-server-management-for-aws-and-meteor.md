@@ -1,28 +1,44 @@
 ---
 layout: page
-title: "Admiral: Easy Server Management on AWS for Meteor Apps"
+title: "Introducing Admiral"
 ---
 
-I built [Fetching](http://fetching.io), a Meteor application that depends on MongoDB and ElasticSearch. I didn't find a ready-made solution I liked for easily deploying and managing my Meteor app on AWS so I created [Admiral](https://github.com/flippyhead/admiral). There were a few features I was after:
+## A Toolkit for AWS CloudFormation, OpsWorks and Meteor
 
-* Easy single-click (or command) deployment of new code.
-* The ability to manage server configuration as code, that could be checked into source control
+When I built [Fetching](http://fetching.io), a Meteor application that depends on MongoDB and ElasticSearch, I needed an easy way to manage its servers and deployments. I didn't find a ready-made solution I liked so I created [Admiral](https://github.com/flippyhead/admiral). There were a few key features I was after:
+
+* Easy single click/command deployment of updates.
+* Ability to fun multiple applications in a cluster of services.
+* The ability to manage server configuration as code and in source control.
 * A simple, modular design that could be easily extended to support other server types (beyond MongoDB and ElasticSearch)
-* Option to include only the components I need for a given project
+* Ability to include only the components I need for a given project
+* Support for rolling server upgrades causing no downtime
 
-I spent a good deal of time researching the many technologies AWS provides and concluded that a combination of OpsWorks and CloudFormation was a great way to go; especially after reading [this blog post](http://www.thoughtworks.com/mingle/news/scaling/2015/01/06/How-Mingle-Built-ElasticSearch-Cluster.html).
+The project is [hosted on GitHub](https://github.com/flippyhead/admiral) and [available via RubyGems](https://rubygems.org/gems/admiral).
 
 ## AWS
 
-[OpsWorks](http://aws.amazon.com/opsworks/) is the AWS approach to Chef and provides some niceties including a nice web UI, a bunch of existing best-practices recipes, support for a variety of deployment methods, monitoring and much more.
+I knew I wanted to go with AWS and settled on a combination of CloudFormation and OpsWorks. In particular I found [this blog post](http://www.thoughtworks.com/mingle/news/scaling/2015/01/06/How-Mingle-Built-ElasticSearch-Cluster.html) to be very useful.
 
-[CloudFormation](http://aws.amazon.com/cloudformation/) is a JSON-based template language that lets you define your AWS infrastructure including nearly all AWS components (e.g. Route53 DNS, elastic load balancers, servers types and locations, VPN stuf, etc.). AWS deals with migrating your infrastructure as your CloudFormation templates change. Using templates, once you get the hang of them, if way better than configuring every manually. To simplify setup, Admiral comes with production ready sample CloudFormation templates for MongoDB, ElasticSearch and Meteor servers.
+[OpsWorks](http://aws.amazon.com/opsworks/) is the AWS approach to Chef and provides some niceties including a clean web UI, a bunch of existing well tested recipes, support for a variety of deployment methods, monitoring and much more.
 
-Since you can configure your Chef scripts from within CloudFormation templates, the combination of OpsWorks and CloudFormation is a fantastic way to manage server infrastructure as code.
+[CloudFormation](http://aws.amazon.com/cloudformation/) is a JSON-based template language that lets you define your AWS infrastructure including nearly all [AWS components](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html) (e.g. Route53 DNS, Elastic Load Balancers, Instance types and configurations, VPN stuff, etc.). AWS deals with migrating your infrastructure as your CloudFormation templates change. Using templates, once you get the hang of them, if way better than configuring everything manually and repeatedly. Since you can configure your Chef scripts from within CloudFormation templates, the combination of OpsWorks and CloudFormation is a fantastic way to manage server infrastructure as code.
+
+## Just what you need
+
+Admiral is composed of modules that each offer discrete functionality. They all work independently and you only include what you need for a given project. You can use admiral-cloudformation to manage AWS and never deal with OpsWorks or Meteor. My hope is that new modules will be developed to handle other requirements and features.
+
+The three current modules (ruby gems) are:
+
+* admiral-cloudformation
+* admiral-opsworks
+* admiral-meteor
+
+You only need to include the one you need. Dependencies are automatically resolved.
 
 ## Getting Started Tutorial
 
-In this brief tutotaly we're going to walk through setting up an AWS cluster to host your Meteor app. The basic steps are:
+In this brief tutorial we're going to walk through setting up an AWS cluster to host your Meteor app. The basic steps are:
 
 1. Create new repo(s) to hold your server configurations.
 2. Get setup with a base CloudFormation template and configuration.
@@ -38,32 +54,28 @@ For each server type, I recommend creating a separate repository to store and tr
 
 {% highlight bash %}
 .gitignore
-.rbenv-vars
+.rbenv-vars               # optional but handy
 .ruby-version
-CloudFormation.template   // for this server type
-Gemfile                   // to include admiral modules
+CloudFormation.template   # for this server type
+Gemfile                   # to include admiral modules
 Gemfile.lock
-production.json           // custom configurations
+production.json           # custom configurations
 staging.json
 {% endhighlight %}
 
 To get started with a production ready template use:
 
-`admiral cf init <server type>`
+{% highlight bash %}
+admiral cf init SERVER_TYPE
+{% endhighlight %}
 
-where `server type` is one of mongo, meteor, or elasticsearch. Of course, you'll have to customize some settings in the included CloudFormation template such as security groups and DNS entries.
+where `SERVER_TYPE` is one of `mongo`, `meteor`, or `elasticsearch`. You'll have to customize a couple settings in the included CloudFormation template such as security groups and DNS entries. You can simply try uploading the default template (using the command below) and follow the errors AWS returns to guide your customizations.
 
 Although your CloudFormation-based configurations are not required to use OpsWorks, the included defaults do. You'll need to include `admiral-opsworks` in your Gemfile in addition to `admiral-cloudformation` to work with OpsWorks via admiral.
 
-Once your templates re properly written and your environment parameter specified, you can create your AWS infrastructure with:
-
-`admiral cf create --env <environment>`
-
-where `environment` refers to a parameter JSON file such as staging or production. Defaults to production. This will validate your CloudFormation template then task AWS with ordering and building out your infrastructure. You can visit the AWS console to monitor the build process.
-
 Admiral requires a few shell environment values to be set in order to authenticate with AWS. These are not stored in the environment configuration files because it's always a bad idea to check into source control passwords and the like.
 
-The recommended setup uses the handy rbenv `.rbenv-vars` file manage these for you. But if you already have your AWS credentials set (e.g. via .profile) it should "just work". The required variables for admiral-cloudformation are:
+The recommended setup uses the handy rbenv `.rbenv-vars` file to manage these for you. But if you already have your AWS credentials set (e.g. via your .profile) it should "just work". The required variables for admiral-cloudformation are:
 
 {% highlight bash %}
 AWS_ACCESS_KEY_ID=xxx
@@ -71,11 +83,21 @@ AWS_SECRET_ACCESS_KEY=yyy
 AWS_REGION=us-west-2        // set to whatever region you want to use
 {% endhighlight %}
 
+Once your CloudFormation and environment templates are customized, and you've set the above environment variables, you can create your AWS infrastructure with:
+
+{% highlight bash %}
+admiral cf create --env ENVIRONMENT
+{% endhighlight %}
+
+where `ENVIRONMENT` refers to a parameter JSON file such as `staging` or `production`. The default is `production`. This will validate your CloudFormation template then task AWS with building out your infrastructure. It manages ordering things correctly, resolving dependencies, and managing events. You can visit the AWS console to monitor the build process.
+
 ### Provisioning Servers using OpsWorks
 
 Once your infrastructure components have been built it's time to provision and start your actual servers! To start things up simply use:
 
-`admiral ow provision`
+{% highlight bash %}
+admiral ow provision
+{% endhighlight %}
 
 depending on the `InstanceCount` and `InstanceType` variables in your environment JSON config, you'll get a bunch of new servers all configured according to the setup specific in your CloudFormation template.
 
@@ -102,37 +124,45 @@ ADMIRAL_DEPLOY_NAME=my-app          // with above, your app will uploaded to S3 
 
 Then from your Meteor app root (where you've installed admiral-meteor using the Gemfile), you'll use:
 
-`admiral meteor push --tag v0.0.1`
+{% highlight bash %}
+admiral meteor push --tag TAG
+{% endhighlight %}
 
-or whatever tag (or none) that you want for a given release. This will build your Meteor app locally using the correct architecture, then push it to S3.
+where `TAG` is an optional git tag for this release. This will build your Meteor app locally using the correct architecture, then push it to S3. You'll have to of course create the bucket you configured above. It's recommended you also add an appropriate ACL to secure the bucket (i.e. ensure it's not public).
 
 ### Deploy your application
 
 Finally, now that your app has been built and pushed, you can deploy it with:
 
-`admiral ow deploy myapp`
+{% highlight bash %}
+admiral ow deploy myapp
+{% endhighlight %}
 
-where myapp is whatever name you specified in `ADMIRAL_DEPLOY_NAME`. By setting these values differently for different meteor apps you can deploy many different applications on the same cluster (for example using [Meteor Cluster](https://github.com/meteorhacks/cluster)).
+where `myapp` is whatever name you specified in `ADMIRAL_DEPLOY_NAME`. By setting these values differently for different meteor apps you can deploy many different applications on the same cluster (for example using [Meteor Cluster](https://github.com/meteorhacks/cluster)).
 
 ## Typical Work-flow (after setup)
 
 The work-flow for managing your servers with Admiral (after the initial setup) is like this:
 
-0. Make a change to your CloudFormation template or environment JSON files.
-1. Commit the change to your source repository.
-2. Run `admiral cf update`.
+1. Make a change to your CloudFormation template or environment JSON files.
+2. Run __admiral cf update__.
 3. Your template changes are validated, pushed to AWS.
 4. Changes to your infrastructure are made automatically.
+5. Run __admiral ow provision__ if necessary to update running instances.
 
  Because CloudFormation updates can cause downtime when servers are upgraded, if you have multiple servers of a given type (for example, an ElasticSearch cluster with multiple nodes) Admiral will manage creating new servers with your changes before replacing old ones. This allows you to upgrade entire clusters with zero downtime.
 
 Uploading new Meteor builds is really easy, you'll almost always do:
 
-`admiral meteor push`
+{% highlight bash %}
+admiral meteor push
+{% endhighlight %}
 
 followed by
 
-`admiral ow deploy myapp`
+{% highlight bash %}
+admiral ow deploy myapp
+{% endhighlight %}
 
 where `myapp` is the name of the app you want to deploy. That's it!
 
@@ -483,6 +513,8 @@ And here's the CloudFormation template for an ElasticSearch cluster:
 
 To apply the `production.json` values to the above `CloudFormation.template` you'd simply:
 
-`admiral cf update --environment production.json --template CloudFormation.template`
+{% highlight bash %}
+admiral cf update --environment production.json --template CloudFormation.template
+{% endhighlight %}
 
 You check in your templates and JSON configurations into your source tree and can easily migrate or rollback to specific configurations.
