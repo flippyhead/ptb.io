@@ -2,7 +2,7 @@
 ---
 $span = $(document.createElement 'span')
 
-url = 'http://api.fetching.io/v1/documents?token=E031EIDrgUXMmJtxE4dfrHN_8kHx3w_Cot3tlspMJoa'
+url = 'http://api.fetching.io/v1/documents?token=0ESGnuz6rC_lKM2OysG4QVXbKcjfdi02hDG9dhNviv-'
 $.getJSON url, (bookmarks) ->
   {length} = bookmarks
   _.each bookmarks, (bookmark, index) ->
