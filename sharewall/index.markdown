@@ -13,4 +13,4 @@ ShareWall is a small experiment in community sharing (and building real-time app
 
 My favorite coffee shop, [Tougo Coffee](http://tougocoffee.com/), installed a large HD flat panel screen. Displayed is a rotating collection of community uploaded images. Coffee drinkers can visit a mobile-friendly page to post images or messages to the screen.
 
-You can see [what's on the screen currently](http://sharewall.co/wall).
+*This project has concluded.*
