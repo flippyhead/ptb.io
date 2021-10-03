@@ -6,17 +6,13 @@
   padding: 0;
 
   .masthead-title {
-    display: none
+    display: none;
   }
 }
 
-img.lead {
-  float: left;
-  width: 14rem;
-  margin-right: 1rem;
-  @media (max-width: 607px) {
-    width: 100%;
-  }
+.lead-image {
+  width: 320px;
+  margin: 0 auto 2em auto;
 }
 
 .hidden {

@@ -16,5 +16,7 @@ coverage
 .sass-cache
 tmp/*
 .jekyll-metadata
+.jekyll-cache
 /vendor
 /test/source/file_name.txt
+node_modules

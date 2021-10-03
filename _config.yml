@@ -8,8 +8,6 @@ tagline:             'ha ha made ya read!'
 description:         'The personal website for Peter Travis Brown.'
 url:                 http://ptb.io
 baseurl:             ''
-paginate:            10
-paginate_path:       /blog/page:num/
 
 # About/contact
 author:
@@ -18,4 +16,4 @@ author:
   email:             p@ptb.io
 
 # Custom vars
-version:             1.1.0
+version:             1.2.0

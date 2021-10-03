@@ -5,7 +5,7 @@
 
     url = 'http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=flippyheads&api_key=b094d5020475474c4db04cd7686b4acb&format=json';
 
-    limit = 10;
+    limit = 12;
 
     $.getJSON(url, function(data) {
         var count, length;
@@ -17,7 +17,8 @@
                 return;
             }
             count = count + 1;
-            comma = length - 1 === index ? '.' : length - 2 === index ? ' and ' : ', ';
+            comma = limit - 1 === index ? '.' : limit - 2 === index ? ' and ' : ', ';
+
             return $span.append("<a href=\"" + track.url + "\">" + track.name + " by " + track.artist['#text'] + "</a>" + comma);
         });
         return $('#spotify').append($span);
