@@ -17,9 +17,24 @@ const LASTFM_URL =
 
 // Fills #<id> with "a, b and c." and reveals the paragraph around it,
 // which ships hidden so a dead feed leaves no dangling half-sentence.
+// Both feeds are third-party, so an item is only linked if it is an
+// absolute http(s) URL. Without this a `javascript:` href from either feed
+// would become a clickable script. Parsing rather than pattern-matching
+// gets the evasions for free: leading whitespace, embedded tabs, casing.
+// No base URL on purpose — anything relative, empty, or missing throws
+// here rather than quietly resolving into a link to our own pages.
+function isWebLink(href) {
+  try {
+    return /^https?:$/.test(new URL(href).protocol);
+  } catch {
+    return false;
+  }
+}
+
 // Builds real nodes instead of innerHTML: the titles are third-party.
-function renderList(id, items) {
+function renderList(id, feedItems) {
   const target = document.getElementById(id);
+  const items = feedItems.filter((item) => isWebLink(item.href));
   if (!target || !items.length) return;
 
   let next = 0;
@@ -54,8 +69,7 @@ async function lastfmTracks() {
     .map((track) => ({
       href: track.url,
       text: `${track.name} by ${track.artist?.['#text']}`,
-    }))
-    .filter((track) => track.href);
+    }));
 }
 
 renderList('goodreads', goodreadsBooks());
