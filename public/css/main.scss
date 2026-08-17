@@ -10,9 +10,37 @@
   }
 }
 
-.lead-image {
+// Hover swaps the still portrait for the animation. The animation is a
+// pseudo-element background rather than a second <img> so that touch
+// devices never fetch it at all: an <img> is downloaded even when hidden,
+// which is how the old version cost every visitor 12MB. Because ::after
+// exists at opacity 0 on hover-capable devices, it loads with the page and
+// the swap is instant rather than stalling on first hover.
+.portrait {
+  position: relative;
   width: 320px;
   margin: 0 auto 2em auto;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (hover: hover) {
+  .portrait::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/public/flippyhead-singing.webp") center / cover no-repeat;
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+  }
+
+  .portrait:hover::after {
+    opacity: 1;
+  }
 }
 
 .hidden {
